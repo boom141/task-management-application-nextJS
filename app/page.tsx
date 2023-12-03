@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"
 import { googleLoginAuth }  from "./services/firebase"
 
 export default function Page() {
-  const authorizedUser = JSON.parse(sessionStorage.getItem('authorized'))
+  const authorizedUser = JSON.parse(sessionStorage.getItem('authorized') as any) || false
   const navigate = useRouter()
 
   authorizedUser ? navigate.push('/taskManager') : false
