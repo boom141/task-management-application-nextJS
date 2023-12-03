@@ -3,7 +3,7 @@ import  Link  from "next/link"
 import { useRouter } from "next/navigation"
 import { googleLoginAuth }  from "./services/firebase"
 
-export default function page() {
+export default function Page() {
   const authorizedUser = JSON.parse(sessionStorage.getItem('authorized'))
   const navigate = useRouter()
 
