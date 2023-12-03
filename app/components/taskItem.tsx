@@ -1,0 +1,94 @@
+import { useState } from 'react'
+import fetchApi from "../services/apiFetching"
+
+type itemProps = {
+  id: any,
+  itemName: string, 
+  itemDesc: string, 
+  setUpdateTask: any, 
+  setFormType: any,
+  setUpdateTitle: any,
+  setUpdateDescription: any,
+  setUpdateId: any,
+  complete: boolean,
+  authorized: boolean
+
+}
+
+export default function TaskItem(props : itemProps) {
+    const [itemStatus, setItemStatus] = useState(true)
+
+    const {
+      id,
+      itemName, 
+      itemDesc, 
+      setUpdateTask, 
+      setFormType,
+      setUpdateTitle,
+      setUpdateDescription,
+      setUpdateId,
+      complete,
+      authorized
+    } = props;
+
+    const initUpdateForm = () =>{
+      setUpdateId(id);
+      setUpdateTitle(itemName);
+      setUpdateDescription(itemDesc);
+      setFormType('update');
+      setUpdateTask(true);
+    }
+    
+    const deleteTask = () =>{
+      const payload = {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({id:id})
+    }
+    
+    fetchApi('deleteTask', payload)
+    .catch(err => console.log(err));
+    }
+
+    const markTask = () =>{
+      setItemStatus(!itemStatus)
+      console.log(itemStatus)
+      const payload = {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({id:id, completed: itemStatus})
+        }
+    
+        fetchApi('markTask', payload)
+        .catch(err => console.log(err));
+        }
+      
+    return(
+      <div className={`${ complete ? 'complete' : false} border rounded-lg p-3 flex items-center justify-between`}>
+        <div className="flex flex-col  w-96">
+          <span className="text-2xl">{itemName}</span>
+          <span className="text-sm font-light">{itemDesc}</span>
+        </div>
+        <div className="flex gap-x-4">
+            <img onClick={markTask} role="button" className="border rounded-full p-[5px] backdrop-blur-sm transition-all hover:bg-white/30 hover:border-none " 
+              width="32" height="32" src="https://img.icons8.com/puffy/32/FFFFFF/experimental-checkmark-puffy.png" />
+            {
+              authorized ? 
+              <>
+                <img onClick={initUpdateForm} role="button" className="border rounded-full p-[5px] backdrop-blur-sm transition-all hover:bg-white/30 hover:border-none "
+                width="32" height="32" src="https://img.icons8.com/puffy/32/FFFFFF/experimental-edit-puffy.png" />
+              </>
+              : false
+            }
+            <img onClick={deleteTask} role="button" className="border rounded-full p-[5px] backdrop-blur-sm transition-all hover:bg-white/30 hover:border-none " 
+              width="32" height="32" src="https://img.icons8.com/puffy/32/FFFFFF/experimental-trash-puffy.png" />
+        </div>
+      </div>
+    );
+  }
