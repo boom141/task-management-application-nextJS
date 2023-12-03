@@ -15,7 +15,7 @@ export default function App() {
   const [updateTitle, setUpdateTitle] = useState('')
   const [updateDescription, setUpdateDescription] = useState('')
   const [updateId, setUpdateId] = useState(null)
-  const [user,setUser] = useState(JSON.parse(sessionStorage.getItem('authorized') as any) || false)
+  const [user,setUser] : any = useState(false)
 
   const navigate = useRouter()
 

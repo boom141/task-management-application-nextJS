@@ -7,7 +7,7 @@ export async function POST(request: Request){
     const result = await prisma.task.delete({where: {id: data.id}});
     return NextResponse.json(result)
   }catch(err){
-    return NextResponse.json({errorMessage:err, errorCode:500});
+    return NextResponse.json({errorMessage:err, status:500});
   }
   
 }

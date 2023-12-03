@@ -55,7 +55,6 @@ export default function TaskItem(props : itemProps) {
 
     const markTask = () =>{
       setItemStatus(!itemStatus)
-      console.log(itemStatus)
       const payload = {
         headers: {
           'Accept': 'application/json',

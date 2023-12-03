@@ -15,7 +15,7 @@ export async function POST(request: Request){
         }})
     return NextResponse.json(result)
   }catch(err){
-    return NextResponse.json({errorMessage:err, errorCode:500});
+    return NextResponse.json({errorMessage:err, status:500});
   }
   
 }

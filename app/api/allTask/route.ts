@@ -6,7 +6,7 @@ export async function GET(){
     const result = await prisma.task.findMany()
     return NextResponse.json(result)
   }catch(err){
-    return NextResponse.json({errorMessage:err, errorCode:500});
+    return NextResponse.json({errorMessage:err, status:500});
   }
   
 }
