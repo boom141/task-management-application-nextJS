@@ -26,6 +26,7 @@ export default function App() {
     fetchApi('allTask',{})
     .then(data => {
       setUser(JSON.parse(hasCookie('authorized') ? getCookie('authorized') : 'false' as any))
+      console.log(data)
       setTaskItems(data);
       setUpdateTitle('');
       setUpdateDescription('');
@@ -109,7 +110,7 @@ export default function App() {
                       authorized={ user ? true : false}
                       setLoader={setLoader}
                       />
-                  )) : false
+                  )) : null
                   } 
                 </FadeIn>
               </div>
