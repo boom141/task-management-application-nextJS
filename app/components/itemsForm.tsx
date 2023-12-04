@@ -8,10 +8,11 @@ type formProps ={
     desc: string, 
     setNewTask: any, 
     type: string
+    setLoader: any,
 }
 
 export default function ItemsForm(props: formProps) {
-  const {id, title, desc, setNewTask, type} = props;
+  const {id, title, desc, setNewTask, type, setLoader} = props;
 
   const titleRef: any = useRef(null);
   const descRef: any = useRef(null);
@@ -23,7 +24,8 @@ export default function ItemsForm(props: formProps) {
   },[titleRef,descRef]);
 
   const createTask = async () =>{
-      
+    setLoader(true)
+
     const title = titleRef.current.value;
     const description = descRef.current.value;
     
@@ -37,12 +39,17 @@ export default function ItemsForm(props: formProps) {
     }
     
     fetchApi('createTask', payload)
-    .then(()=> setNewTask(false))
+    .then(()=> {
+      setNewTask(false)
+      setLoader(false)
+    })
     .catch(err => console.log(err));
     
   }
 
   const updateTask = async () =>{
+    setLoader(true)
+
     const title = titleRef.current.value;
     const description = descRef.current.value;
 
@@ -56,7 +63,10 @@ export default function ItemsForm(props: formProps) {
     }
     
     fetchApi('updateTask', payload)
-    .then(()=> setNewTask(false))
+    .then(()=> {
+      setNewTask(false)
+      setLoader(false)
+    })
     .catch(err => console.log(err));
   }
 

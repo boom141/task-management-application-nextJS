@@ -11,13 +11,12 @@ type itemProps = {
   setUpdateDescription: any,
   setUpdateId: any,
   complete: boolean,
-  authorized: boolean
-
+  authorized: boolean,
+  setLoader: any
 }
 
 export default function TaskItem(props : itemProps) {
-    const [itemStatus, setItemStatus] = useState(true)
-
+    const [itemStatus, setItemStatus] = useState(false)
     const {
       id,
       itemName, 
@@ -28,7 +27,8 @@ export default function TaskItem(props : itemProps) {
       setUpdateDescription,
       setUpdateId,
       complete,
-      authorized
+      authorized,
+      setLoader
     } = props;
 
     const initUpdateForm = () =>{
@@ -52,9 +52,10 @@ export default function TaskItem(props : itemProps) {
     fetchApi('deleteTask', payload)
     .catch(err => console.log(err));
     }
-
-    const markTask = () =>{
-      setItemStatus(!itemStatus)
+    
+    const markTask = () =>{      
+      setItemStatus( itemStatus ? false : true )
+      
       const payload = {
         headers: {
           'Accept': 'application/json',
@@ -62,25 +63,25 @@ export default function TaskItem(props : itemProps) {
         },
         method: "POST",
         body: JSON.stringify({id:id, completed: itemStatus})
-        }
-    
-        fetchApi('markTask', payload)
-        .catch(err => console.log(err));
-        }
+      }
+
+      fetchApi('markTask', payload)
+      .catch(err => console.log(err));
+    }
       
     return(
       <div className={`${ complete ? 'complete' : false} border rounded-lg p-3 flex items-center justify-between`}>
         <div className="flex flex-col  w-96">
-          <span className="text-2xl">{itemName}</span>
-          <span className="text-sm font-light">{itemDesc}</span>
+          <span className="text-2xl">{itemName.toUpperCase()}</span>
+          <span className="text-sm font-thin">{itemDesc}</span>
         </div>
-        <div className="flex gap-x-4">
+        <div className="flex gap-x-4 px-3">
             <img onClick={markTask} role="button" className="border rounded-full p-[5px] backdrop-blur-sm transition-all hover:bg-white/30 hover:border-none " 
               width="32" height="32" src="https://img.icons8.com/puffy/32/FFFFFF/experimental-checkmark-puffy.png" />
             {
               authorized ? 
               <>
-                <img onClick={initUpdateForm} role="button" className="border rounded-full p-[5px] backdrop-blur-sm transition-all hover:bg-white/30 hover:border-none "
+                <img onClick={initUpdateForm} role="button" className={`${ complete ? 'pointer-events-none' : false } border rounded-full p-[5px] backdrop-blur-sm transition-all hover:bg-white/30 hover:border-none `}
                 width="32" height="32" src="https://img.icons8.com/puffy/32/FFFFFF/experimental-edit-puffy.png" />
               </>
               : false

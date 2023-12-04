@@ -1,6 +1,10 @@
-import { setCookie } from "cookies-next";
+import dotenv from 'dotenv'
+import { setCookie, hasCookie } from "cookies-next";
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup, } from "firebase/auth"
+
+dotenv.config()
+const firebaseApiKey = process.env.FIREBASE_API_KEY
 
 const firebaseConfig = {
     apiKey: "AIzaSyB81orxmCaxTmiwPIYi6lnyd8Ic9g5OJjQ",
@@ -18,9 +22,11 @@ export const auth : any = getAuth(app);
 export async function GoogleLoginAuth(){
     try{
         await signInWithPopup(auth, provider)
-        setCookie('authorized', JSON.stringify({accessToken: auth.currentUser.accessToken,
-        name: auth.currentUser.displayName, picture: auth.currentUser.photoURL}));
+        hasCookie('authorized') ? false : setCookie('authorized', JSON.stringify({accessToken: auth.currentUser.accessToken,
+        name: auth.currentUser.displayName, picture: auth.currentUser.photoURL})) ;
+        
         return window.location.replace('/taskManager')
+        
     }catch(e){
         return e
     }

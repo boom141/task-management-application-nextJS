@@ -1,5 +1,6 @@
 'use client'
 
+import { getCookie, deleteCookie, hasCookie } from "cookies-next";
 import { useState,useEffect} from "react";
 import { useRouter } from "next/navigation"
 import dateFormat  from "dateformat";
@@ -7,6 +8,7 @@ import FadeIn from "react-fade-in/lib/FadeIn";
 import ItemsForm from "../components/itemsForm";
 import TaskItem from "../components/taskItem";
 import fetchApi from "../services/apiFetching"
+import Loader from "../components/loader";
 
 export default function App() {
   const [newTask, setNewTask] = useState(false);
@@ -15,19 +17,21 @@ export default function App() {
   const [updateTitle, setUpdateTitle] = useState('')
   const [updateDescription, setUpdateDescription] = useState('')
   const [updateId, setUpdateId] = useState(null)
-  const [user,setUser] : any = useState(false)
+  const [user,setUser] : any = useState()
+  const [loader,setLoader] = useState(false)
 
   const navigate = useRouter()
 
   useEffect(()=>{
     fetchApi('allTask',{})
     .then(data => {
+      setUser(JSON.parse(hasCookie('authorized') ? getCookie('authorized') : 'false' as any))
       setTaskItems(data);
       setUpdateTitle('');
       setUpdateDescription('');
     })
     .catch(err => console.error(err))
-  },[taskItems])
+  },[taskItems,user])
 
 
   const getDate = () =>{
@@ -36,8 +40,8 @@ export default function App() {
   }
 
   const signOut = () => {
-    sessionStorage.clear();
-    return navigate.replace('/')
+    user ? deleteCookie('authorized') : false;
+    navigate.replace('/')
   }
 
   type itemProps = {
@@ -48,62 +52,69 @@ export default function App() {
   }
 
   return (
-    <div className="flex flex-col mx-auto w-full">
-      <div className="flex gap-x-[1rem] items-center p-3 rounded-lg mt-20 backdrop-blur-sm bg-white/30 mx-10">
-          <img className="rounded-full" src={user ? user.picture : "https://img.icons8.com/ios-glyphs/90/FFFFFF/user--v1.png"}  />
-          <div className="flex flex-col"> 
-            <span className="text-[30px] font-bold">{ user ? user.name : 'Guest User'}</span>
-            <span className="text-xs font-light">{getDate()}</span>
-          </div>
-          {user ? 
-            <>
-              <img onClick={signOut} role="button" className="ml-[10rem]" width="50" height="50" src="https://img.icons8.com/ios-filled/100/FFFFFF/logout-rounded.png" alt="logout-rounded"/>
-            </>
-            :false
-          }
-      </div>
+    <div className="flex flex-col justify-start items-center h-full w-full">
+      
+      {
+        loader ?
 
-      <div className="flex flex-col mx-10 mt-10">
-        <div className="border-b-[1px] w-full flex justify-between items-center">
-          <h1 className="text-[40px] font-semibold">Tasks</h1>
-          <div className="flex justify-between items-center gap-x-2"> 
-            <span className="font-light">Add Task</span>
-            <img role="button" onClick={()=>{
-                setFormType('create')
-                setNewTask(true)
-              }} className="border rounded-full p-[5px] backdrop-blur-sm transition-all hover:bg-white/30 hover:border-none " 
-            width="32" height="32" src="https://img.icons8.com/android/48/FFFFFF/plus.png" />
+        <Loader />
+          :
+        <div className="flex flex-col h-full mx-10 ">
+          <div className="flex gap-x-[1rem] w-full items-center p-3 rounded-lg mt-20 backdrop-blur-sm bg-white/30 ">
+              <img className="rounded-full" src={user ? user.picture : "https://img.icons8.com/ios-glyphs/90/FFFFFF/user--v1.png"}  />
+              <div className="flex flex-col"> 
+                <span className="text-[30px] font-bold">{ user ? user.name : 'Guest User'}</span>
+                <span className="text-xs font-light">{getDate()}</span>
+              </div>
+              <img onClick={signOut} role="button" className="ml-[10rem] hover:scale-110 transition-all" width="50" height="50" src="https://img.icons8.com/ios-filled/100/FFFFFF/logout-rounded.png" alt="logout-rounded"/>
           </div>
-        </div>
-        {
-          newTask ? 
-              <ItemsForm 
-                id={updateId} 
-                title={updateTitle} 
-                desc={updateDescription} 
-                setNewTask={setNewTask} 
-                type={formType}
-                />
-            :
-            <FadeIn className="flex flex-col gap-y-3 mt-5">
-              {taskItems?.map((item: itemProps) => (
-                <TaskItem 
-                  key={item.id} 
-                  id={item.id}
-                  itemName={item.title} 
-                  itemDesc={item.description} 
-                  setUpdateTask={setNewTask} 
-                  setFormType={setFormType}
-                  setUpdateTitle={setUpdateTitle}
-                  setUpdateDescription={setUpdateDescription}
-                  setUpdateId={setUpdateId}
-                  complete={item.completed}
-                  authorized={ user ? true : false}
+  
+
+          <div className="border-b-[1px] w-full flex justify-between items-center mt-10">
+            <h1 className="text-[40px] font-semibold">Tasks</h1>
+            <div className="flex justify-between items-center gap-x-2"> 
+              <span className="font-light">Add Task</span>
+              <img role="button" onClick={()=>{
+                  setFormType('create')
+                  setNewTask(true)
+                }} className="border rounded-full p-[5px] backdrop-blur-sm transition-all hover:bg-white/30 hover:border-none " 
+              width="32" height="32" src="https://img.icons8.com/android/48/FFFFFF/plus.png" />
+            </div>
+          </div>
+          {
+            newTask ? 
+                <ItemsForm 
+                  id={updateId} 
+                  title={updateTitle} 
+                  desc={updateDescription} 
+                  setNewTask={setNewTask} 
+                  type={formType}
+                  setLoader={setLoader}
                   />
-              ))} 
-            </FadeIn>
-        }
-      </div>
+              :
+              <div className="flex grow overflow-y-auto ">
+                <FadeIn className="flex flex-col gap-y-3 mt-5 mx-5">
+                  {taskItems?.map((item: itemProps) => (
+                    <TaskItem 
+                      key={item.id} 
+                      id={item.id}
+                      itemName={item.title} 
+                      itemDesc={item.description} 
+                      setUpdateTask={setNewTask} 
+                      setFormType={setFormType}
+                      setUpdateTitle={setUpdateTitle}
+                      setUpdateDescription={setUpdateDescription}
+                      setUpdateId={setUpdateId}
+                      complete={item.completed}
+                      authorized={ user ? true : false}
+                      setLoader={setLoader}
+                      />
+                  ))} 
+                </FadeIn>
+              </div>
+          }
+        </div>
+      }
     </div>
   
   )

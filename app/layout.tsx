@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className}
-        container bg-slate-800 text-slate-100 h-screen overflow-hidden 
+         bg-slate-800 text-slate-100 h-screen overflow-hidden 
       `}>{children}</body>
     </html>
   )

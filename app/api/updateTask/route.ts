@@ -3,7 +3,6 @@ import prisma from "@/prisma/client";
 
 export async function POST(request: Request){
   const data = await request.json();
-  console.log(data);
   try{
     const result = await prisma.task.update({
         where:{
