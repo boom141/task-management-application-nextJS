@@ -94,7 +94,7 @@ export default function App() {
               :
               <div className="flex grow overflow-y-auto ">
                 <FadeIn className="flex flex-col gap-y-3 mt-5 mx-5">
-                  {taskItems?.map((item: itemProps) => (
+                  {taskItems ? taskItems.map((item: itemProps) => (
                     <TaskItem 
                       key={item.id} 
                       id={item.id}
@@ -109,7 +109,8 @@ export default function App() {
                       authorized={ user ? true : false}
                       setLoader={setLoader}
                       />
-                  ))} 
+                  )) : false
+                  } 
                 </FadeIn>
               </div>
           }
