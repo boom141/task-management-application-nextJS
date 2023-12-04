@@ -11,7 +11,7 @@ export default function Page() {
 
   return (
     <div className="flex justify-center items-center h-full px-20">
-      <div className="flex w-full gap-y-3 flex-col p-5 rounded-lg mt-20 backdrop-blur-sm  bg-white/30 px-10">
+      <div className="flex w-50 gap-y-3 flex-col p-5 rounded-lg mt-20 backdrop-blur-sm  bg-white/30 px-10">
         <h1 className="text-3xl text-center font-bold">Task Manager Application</h1>
         <h1 className="text-center font-light">Sign in with</h1>
         <div onClick={GoogleLoginAuth} role="button" className="flex justify-center items-center bg-white rounded-lg p-2 transition-all hover:bg-slate-300">

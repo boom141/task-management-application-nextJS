@@ -16,10 +16,9 @@ type itemProps = {
 }
 
 export default function TaskItem(props : itemProps) {
-    const [itemStatus, setItemStatus] = useState(false)
-    const {
-      id,
-      itemName, 
+  const {
+    id,
+    itemName, 
       itemDesc, 
       setUpdateTask, 
       setFormType,
@@ -28,8 +27,8 @@ export default function TaskItem(props : itemProps) {
       setUpdateId,
       complete,
       authorized,
-      setLoader
     } = props;
+    
 
     const initUpdateForm = () =>{
       setUpdateId(id);
@@ -54,7 +53,6 @@ export default function TaskItem(props : itemProps) {
     }
     
     const markTask = () =>{      
-      setItemStatus( itemStatus ? false : true )
       
       const payload = {
         headers: {
@@ -62,7 +60,7 @@ export default function TaskItem(props : itemProps) {
           'Content-Type': 'application/json'
         },
         method: "POST",
-        body: JSON.stringify({id:id, completed: itemStatus})
+        body: JSON.stringify({id:id, completed: !complete})
       }
 
       fetchApi('markTask', payload)
