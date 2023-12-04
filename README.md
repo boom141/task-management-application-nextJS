@@ -4,7 +4,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-Before running the project please install first the depedencies below:
+Before running the project, please install the dependencies below:
 
 ```bash
 "prisma": "^5.6.0",
@@ -16,8 +16,8 @@ Before running the project please install first the depedencies below:
 "react-fade-in": "^2.0.1",
 ```
 
-After, installing dependcies setup your envirinment variable for your postgresSQL
-After that you can now run the development server:
+After installing dependencies, setup your environment variable for your PostgresSQL.
+After that, you can now run the development server:
 
 ```bash
 npm run dev
@@ -50,7 +50,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 **NOTE**
 
-When deploying this project in vercel you might encounter a error realated to Prisma Client.
+When deploying this project in Vercel, you might encounter an error related to the Prisma client.
 If you do encounter it, check this documentation [Vercel build dependency caching workaround](https://www.prisma.io/docs/guides/other/troubleshooting-orm/help-articles/vercel-caching-issue)
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
