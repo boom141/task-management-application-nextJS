@@ -1,8 +1,23 @@
+## TASK MANAGEMENT APPLICATION
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
-First, run the development server:
+Before running the project please install first the depedencies below:
+
+```bash
+"prisma": "^5.6.0",
+"@prisma/client": "^5.6.0",
+"cookies-next": "^4.1.0",
+"dateformat": "^5.0.3",
+"dotenv": "^16.3.1",
+"firebase": "^10.7.0",
+"react-fade-in": "^2.0.1",
+```
+
+After, installing dependcies setup your envirinment variable for your postgresSQL
+After that you can now run the development server:
 
 ```bash
 npm run dev
@@ -32,5 +47,10 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+**NOTE**
+
+When deploying this project in vercel you might encounter a error realated to Prisma Client.
+If you do encounter it, check this documentation [Vercel build dependency caching workaround](https://www.prisma.io/docs/guides/other/troubleshooting-orm/help-articles/vercel-caching-issue)
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
