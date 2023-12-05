@@ -1,19 +1,21 @@
 'use client'
 
-import { getCookie, deleteCookie, hasCookie } from "cookies-next";
 import React,{ useState,useEffect,createContext} from "react";
+import { getCookie, deleteCookie, hasCookie } from "cookies-next";
 import { useRouter } from "next/navigation"
+import { fetchApi,fetcher } from "../services/apiFetching"
 import dateFormat  from "dateformat";
 import FadeIn from "react-fade-in/lib/FadeIn";
+import useSWR from "swr";
+
 import ItemsForm from "../components/itemsForm";
 import TaskItem from "../components/taskItem";
-import fetchApi from "../services/apiFetching"
 import Loader from "../components/loader";
 
 export default function App() {
   const [newTask, setNewTask] = useState(false);
   const [formType, setFormType] = useState('create');
-  const [taskItems, setTaskItems] = useState([]);
+  // const [taskItems, setTaskItems] = useState([]);
   const [updateTitle, setUpdateTitle] = useState('')
   const [updateDescription, setUpdateDescription] = useState('')
   const [updateId, setUpdateId] = useState(null)
@@ -21,21 +23,9 @@ export default function App() {
   const [loader,setLoader] = useState(false)
 
   const navigate = useRouter()
-  
-  useEffect(()=>{
-    fetchApi('allTask')
-    .then(data => {
-      if(data.status !== 500){
-        // setUser(JSON.parse(hasCookie('authorized') ? getCookie('authorized') : 'false' as any))
-        setTaskItems(data);
-        // setUpdateTitle('');
-        // setUpdateDescription('');
-      }else{
-        console.log(data.errorMessage);
-      }
-    })
-  },[taskItems])
-  
+
+  const { data: taskItems } = useSWR('http://localhost:3000/api/allTask', fetcher)
+  console.log(taskItems)
 
   const getDate = () =>{
     const current = new Date();

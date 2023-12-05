@@ -1,5 +1,5 @@
 import { useRef,useEffect } from 'react'
-import fetchApi from "../services/apiFetching"
+import {fetchApi} from "../services/apiFetching"
 import FadeIn from "react-fade-in/lib/FadeIn";
 
 type formProps ={ 

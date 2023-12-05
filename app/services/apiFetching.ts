@@ -1,4 +1,6 @@
-export default async function fetchApi(endpoint: string, payload: any = {}){
+export const fetcher = (url:string) => fetch(url).then((res) => res.json());
+
+export  async function fetchApi(endpoint: string, payload: any = {}){
     try{
         payload.cache = 'no-store'
         payload.next = {revalidate: 3600}

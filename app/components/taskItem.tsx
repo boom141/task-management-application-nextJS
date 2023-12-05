@@ -1,4 +1,4 @@
-import fetchApi from "../services/apiFetching"
+import {fetchApi} from "../services/apiFetching"
 
 type itemProps = {
   id: any,
