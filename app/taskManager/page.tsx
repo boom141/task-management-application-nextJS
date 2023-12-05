@@ -23,7 +23,7 @@ export default function App() {
   const navigate = useRouter()
   
   useEffect(()=>{
-    fetchApi('allTask',{})
+    fetchApi('allTask',{ next: { revalidate: 0 }})
     .then(data => {
       if(data.status !== 500){
         setUser(JSON.parse(hasCookie('authorized') ? getCookie('authorized') : 'false' as any))
@@ -96,7 +96,7 @@ export default function App() {
                   setLoader={setLoader}
                   />
               :
-              <div className="flex grow overflow-y-auto mb-20">
+              <div className="flex grow overflow-y-auto mb-10">
                 <FadeIn className="flex flex-col gap-y-3 mt-5 mx-5">
                   {Array.isArray(taskItems) ? taskItems.map((item: itemProps) => (
                     <TaskItem 
