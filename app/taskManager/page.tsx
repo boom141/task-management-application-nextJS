@@ -28,8 +28,8 @@ export default function App() {
     .then(data => {
       if(data.status !== 500){
         setUser(JSON.parse(hasCookie('authorized') ? getCookie('authorized') : 'false' as any))
-        setUpdateTitle('');
         setTaskItems(data);
+        setUpdateTitle('');
         setUpdateDescription('');
       }else{
         console.log(data.errorMessage);
