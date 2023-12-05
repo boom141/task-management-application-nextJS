@@ -24,8 +24,8 @@ export default function App() {
 
   const navigate = useRouter()
 
-  const { data: taskItems } = useSWR('http://localhost:3000/api/allTask', fetcher)
-  console.log(taskItems)
+  const { data: taskItems } = useSWR(window.origin + '/api/allTask', fetcher)
+
 
   const getDate = () =>{
     const current = new Date();
