@@ -4,7 +4,7 @@ import { getCookie, deleteCookie, hasCookie } from "cookies-next";
 import { useState,useEffect} from "react";
 import { useRouter } from "next/navigation"
 import dateFormat  from "dateformat";
-// import FadeIn from "react-fade-in/lib/FadeIn";
+import FadeIn from "react-fade-in/lib/FadeIn";
 import ItemsForm from "../components/itemsForm";
 import TaskItem from "../components/taskItem";
 import fetchApi from "../services/apiFetching"
@@ -26,7 +26,6 @@ export default function App() {
     fetchApi('allTask',{})
     .then(data => {
       setUser(JSON.parse(hasCookie('authorized') ? getCookie('authorized') : 'false' as any))
-      console.log(data)
       setTaskItems(data);
       setUpdateTitle('');
       setUpdateDescription('');
@@ -93,7 +92,7 @@ export default function App() {
                   setLoader={setLoader}
                   />
               :
-              <div className="flex grow overflow-y-auto ">
+              <FadeIn className="flex grow overflow-y-auto ">
                 <div className="flex flex-col gap-y-3 mt-5 mx-5">
                   {Array.isArray(taskItems) ? taskItems.map((item: itemProps) => (
                     <TaskItem 
@@ -113,7 +112,7 @@ export default function App() {
                   )) : null
                   } 
                 </div>
-              </div>
+              </FadeIn>
           }
         </div>
       }
