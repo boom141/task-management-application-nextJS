@@ -29,6 +29,7 @@ export default function App() {
       setTaskItems(data);
       setUpdateTitle('');
       setUpdateDescription('');
+      console.log(data)
     })
     .catch(err => console.error(err))
   },[])
