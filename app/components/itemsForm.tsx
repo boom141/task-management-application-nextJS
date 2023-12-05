@@ -1,6 +1,6 @@
 import { useRef,useEffect } from 'react'
 import fetchApi from "../services/apiFetching"
-import FadeIn from "react-fade-in/lib/FadeIn";
+// import FadeIn from "react-fade-in/lib/FadeIn";
 
 type formProps ={ 
     id: any, 
@@ -72,7 +72,7 @@ export default function ItemsForm(props: formProps) {
 
   return (
     <div className="mt-5 backdrop-blur-sm bg-white/30 w-full rounded-lg">
-        <FadeIn>
+        {/* <FadeIn> */}
             <div className="flex flex-col p-3">
                 <input ref={titleRef} type="text" id="taskName" placeholder="Title" className="p-3 rounded-md border border-[#e0e0e0] bg-white  text-base font-medium text-[#6B7280]" />
                 <textarea ref={descRef} id="taskDesc" placeholder="Description" className="p-3 w-full mt-3 rounded-md border border-[#e0e0e0] bg-white  text-base font-medium text-[#6B7280]"></textarea>
@@ -87,7 +87,7 @@ export default function ItemsForm(props: formProps) {
                     
                 </div>
             </div>
-        </FadeIn>
+        {/* </FadeIn> */}
     </div> 
   )
 }

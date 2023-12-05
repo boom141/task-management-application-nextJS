@@ -4,7 +4,7 @@ import { getCookie, deleteCookie, hasCookie } from "cookies-next";
 import { useState,useEffect} from "react";
 import { useRouter } from "next/navigation"
 import dateFormat  from "dateformat";
-import FadeIn from "react-fade-in/lib/FadeIn";
+// import FadeIn from "react-fade-in/lib/FadeIn";
 import ItemsForm from "../components/itemsForm";
 import TaskItem from "../components/taskItem";
 import fetchApi from "../services/apiFetching"
@@ -93,7 +93,7 @@ export default function App() {
                   />
               :
               <div className="flex grow overflow-y-auto ">
-                <FadeIn className="flex flex-col gap-y-3 mt-5 mx-5">
+                <div className="flex flex-col gap-y-3 mt-5 mx-5">
                   {Array.isArray(taskItems) ? taskItems.map((item: itemProps) => (
                     <TaskItem 
                       key={item.id} 
@@ -111,7 +111,7 @@ export default function App() {
                       />
                   )) : null
                   } 
-                </FadeIn>
+                </div>
               </div>
           }
         </div>
