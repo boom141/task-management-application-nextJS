@@ -32,7 +32,7 @@ export default function App() {
       console.log(data)
     })
     .catch(err => console.error(err))
-  },[taskItems])
+  },[])
 
 
   const getDate = () =>{
