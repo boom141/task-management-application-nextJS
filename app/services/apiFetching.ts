@@ -1,4 +1,4 @@
-export const fetcher = (url:string) => fetch(url,{cache:'no-store'}).then((res) => res.json());
+export const fetcher = (url:string) => fetch(url).then((res) => res.json());
 
 export  async function fetchApi(endpoint: string, payload: any = {}){
     try{
@@ -10,3 +10,19 @@ export  async function fetchApi(endpoint: string, payload: any = {}){
         return e
     }
 }
+
+// export const apiFetching = async (url: string, method: boolean, data?: any) => {
+//     const options:any = {
+//       method: method ? 'POST' : 'GET',
+//       headers: {
+//         accept: "application/json",
+//         "Content-Type": "application/json",
+//       },
+//     };
+    
+//     if(method){
+//         options.body = JSON.stringify(data)
+//     }
+    
+//     return fetch(url, options).then(r => r.json());
+//   };

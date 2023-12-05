@@ -3,7 +3,7 @@
 import React,{ useState,useEffect,createContext} from "react";
 import { getCookie, deleteCookie, hasCookie } from "cookies-next";
 import { useRouter } from "next/navigation"
-import { fetchApi,fetcher } from "../services/apiFetching"
+import { fetcher } from "../services/apiFetching"
 import dateFormat  from "dateformat";
 import FadeIn from "react-fade-in/lib/FadeIn";
 import useSWR from "swr";
@@ -23,8 +23,8 @@ export default function App() {
   const [loader,setLoader] = useState(false)
 
   const navigate = useRouter()
+  const { data: taskItems } = useSWR('/api/allTask',fetcher, { refreshInterval: 500, revalidateIfStale: true })
 
-  const { data: taskItems } = useSWR('/api/allTask', fetcher)
 
 
   const getDate = () =>{
@@ -86,7 +86,7 @@ export default function App() {
                   />
               :
               <div className="flex grow overflow-y-auto mb-10">
-                <FadeIn className="flex flex-col gap-y-3 py-5 mt-5 mx-5">
+                <FadeIn className="500 flex flex-col gap-y-3 m-5">
                   {Array.isArray(taskItems) ? taskItems.map((item: itemProps) => (
                     <TaskItem 
                       key={item.id} 
