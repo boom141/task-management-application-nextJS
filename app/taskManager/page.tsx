@@ -21,7 +21,6 @@ export default function App() {
   const [loader,setLoader] = useState(false)
 
   const navigate = useRouter()
-
   
   useEffect(()=>{
     fetchApi('allTask',{})
