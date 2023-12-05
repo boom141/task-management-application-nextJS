@@ -96,7 +96,7 @@ export default function App() {
                   setLoader={setLoader}
                   />
               :
-              <div className="flex grow overflow-y-auto ">
+              <div className="flex grow overflow-y-auto mb-20">
                 <FadeIn className="flex flex-col gap-y-3 mt-5 mx-5">
                   {Array.isArray(taskItems) ? taskItems.map((item: itemProps) => (
                     <TaskItem 
