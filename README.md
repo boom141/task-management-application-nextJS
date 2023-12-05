@@ -54,6 +54,6 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 - When deploying this project in Vercel, you might encounter an error related to the Prisma client.
   If you do encounter it, check this documentation [Vercel build dependency caching workaround](https://www.prisma.io/docs/guides/other/troubleshooting-orm/help-articles/vercel-caching-issue)
 
-- Another error you might encouter is stale responses from the api request. see this documentation for more information [Managing Vercel Data Cache](https://vercel.com/docs/infrastructure/data-cache/manage-data-cache#)
+- Another error you might encouter is stale (not fresh data) responses from the api request. see this documentation for more information [Managing Vercel Data Cache](https://vercel.com/docs/infrastructure/data-cache/manage-data-cache#)
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
