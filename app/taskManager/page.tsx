@@ -31,7 +31,7 @@ export default function App() {
       setUpdateDescription('');
     })
     .catch(err => console.error(err))
-  },[taskItems,user])
+  },[])
 
 
   const getDate = () =>{
@@ -92,8 +92,8 @@ export default function App() {
                   setLoader={setLoader}
                   />
               :
-              <FadeIn className="flex grow overflow-y-auto ">
-                <div className="flex flex-col gap-y-3 mt-5 mx-5">
+              <div className="flex grow overflow-y-auto ">
+                <FadeIn className="flex flex-col gap-y-3 mt-5 mx-5">
                   {Array.isArray(taskItems) ? taskItems.map((item: itemProps) => (
                     <TaskItem 
                       key={item.id} 
@@ -111,8 +111,8 @@ export default function App() {
                       />
                   )) : null
                   } 
-                </div>
-              </FadeIn>
+                </FadeIn>
+              </div>
           }
         </div>
       }
