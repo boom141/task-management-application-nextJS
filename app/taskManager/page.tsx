@@ -31,6 +31,7 @@ export default function App() {
         setTaskItems(data);
         setUpdateTitle('');
         setUpdateDescription('');
+        console.log(data);
       }else{
         console.log(data.errorMessage);
       }
