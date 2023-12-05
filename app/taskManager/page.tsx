@@ -15,7 +15,6 @@ import Loader from "../components/loader";
 export default function App() {
   const [newTask, setNewTask] = useState(false);
   const [formType, setFormType] = useState('create');
-  // const [taskItems, setTaskItems] = useState([]);
   const [updateTitle, setUpdateTitle] = useState('')
   const [updateDescription, setUpdateDescription] = useState('')
   const [updateId, setUpdateId] = useState(null)
@@ -23,8 +22,11 @@ export default function App() {
   const [loader,setLoader] = useState(false)
 
   const navigate = useRouter()
-  const { data: taskItems } = useSWR('/api/allTask',fetcher, { refreshInterval: 500, revalidateIfStale: true })
-
+  const { data: taskItems, mutate } = useSWR('/api/allTask',fetcher)
+  
+  useEffect(()=>{
+    setUser(hasCookie('authorized') ? JSON.parse(getCookie('authorized') as any ) : false)
+  },[])
 
 
   const getDate = () =>{
@@ -83,6 +85,7 @@ export default function App() {
                   setNewTask={setNewTask} 
                   type={formType}
                   setLoader={setLoader}
+                  mutate={mutate}
                   />
               :
               <div className="flex grow overflow-y-auto mb-10">
@@ -100,7 +103,7 @@ export default function App() {
                       setUpdateId={setUpdateId}
                       complete={item.completed}
                       authorized={ user ? true : false}
-                      setLoader={setLoader}
+                      mutate={mutate}
                       />
                   )) : null
                   } 

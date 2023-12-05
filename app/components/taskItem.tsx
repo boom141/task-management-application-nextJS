@@ -12,7 +12,7 @@ type itemProps = {
   setUpdateId: any,
   complete: boolean,
   authorized: boolean,
-  setLoader: any
+  mutate: any
 }
 
 export default function TaskItem(props : itemProps) {
@@ -27,6 +27,7 @@ export default function TaskItem(props : itemProps) {
       setUpdateId,
       complete,
       authorized,
+      mutate
     } = props;
     
 
@@ -39,31 +40,19 @@ export default function TaskItem(props : itemProps) {
     }
     
     const deleteTask = () =>{
-      const payload = {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify({id:id})
-    }
-    
-    fetchApi('deleteTask', payload)
-    .catch(err => console.log(err));
-    }
-    
-    const markTask = () =>{      
-      
-      const payload = {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify({id:id, completed: !complete})
-      }
+      const data = {id:id}
 
-      fetchApi('markTask', payload)
+      fetchApi('deleteTask', true, data)
+      .then(()=>mutate())
+      .catch(err => console.log(err));
+    }
+    
+    
+    const markTask = () =>{     
+      const data = {id:id, completed: !complete}
+
+      fetchApi('markTask', true, data)
+      .then(()=>mutate())
       .catch(err => console.log(err));
     }
       

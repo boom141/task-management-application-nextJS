@@ -1,28 +1,14 @@
 export const fetcher = (url:string) => fetch(url).then((res) => res.json());
 
-export  async function fetchApi(endpoint: string, payload: any = {}){
-    try{
-        payload.cache = 'no-store'
-        payload.next = {revalidate: 3600}
-        const data = await fetch(window.origin + "/api/" +endpoint, payload);
-        return data.json()
-    }catch(e){
-        return e
+export const fetchApi = async (url: string, method: boolean, data?: any) => {
+    const payload = {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: method ? 'POST' : 'GET',
+        body: JSON.stringify(data)
     }
-}
 
-// export const apiFetching = async (url: string, method: boolean, data?: any) => {
-//     const options:any = {
-//       method: method ? 'POST' : 'GET',
-//       headers: {
-//         accept: "application/json",
-//         "Content-Type": "application/json",
-//       },
-//     };
-    
-//     if(method){
-//         options.body = JSON.stringify(data)
-//     }
-    
-//     return fetch(url, options).then(r => r.json());
-//   };
+    return await fetch(`${window.origin}/api/${url}`, payload).then(r => r.json());
+  };

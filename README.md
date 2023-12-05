@@ -14,6 +14,7 @@ Before running the project, please install the dependencies below:
 "dotenv": "^16.3.1",
 "firebase": "^10.7.0",
 "react-fade-in": "^2.0.1",
+"swr": "^2.2.4",
 ```
 
 After installing dependencies, setup your environment variable for your PostgresSQL.
@@ -50,7 +51,9 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 **NOTE**
 
-When deploying this project in Vercel, you might encounter an error related to the Prisma client.
-If you do encounter it, check this documentation [Vercel build dependency caching workaround](https://www.prisma.io/docs/guides/other/troubleshooting-orm/help-articles/vercel-caching-issue)
+- When deploying this project in Vercel, you might encounter an error related to the Prisma client.
+  If you do encounter it, check this documentation [Vercel build dependency caching workaround](https://www.prisma.io/docs/guides/other/troubleshooting-orm/help-articles/vercel-caching-issue)
+
+- Another error you might encouter is stale responses from the api request. see this documentation for more information [Managing Vercel Data Cache](https://vercel.com/docs/infrastructure/data-cache/manage-data-cache#)
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

@@ -9,10 +9,11 @@ type formProps ={
     setNewTask: any, 
     type: string
     setLoader: any,
+    mutate: any
 }
 
 export default function ItemsForm(props: formProps) {
-  const {id, title, desc, setNewTask, type, setLoader} = props;
+  const {id, title, desc, setNewTask, type, setLoader, mutate} = props;
 
   const titleRef: any = useRef(null);
   const descRef: any = useRef(null);
@@ -28,18 +29,13 @@ export default function ItemsForm(props: formProps) {
 
     const title = titleRef.current.value;
     const description = descRef.current.value;
-    
-    const payload = {
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify({title: title, description: description})
-    }
-    
-    fetchApi('createTask', payload)
-    .then(()=> {
+
+    const data = {title: title, description: description}
+
+    fetchApi('createTask', true, data)
+    .then(()=>{
+      console.log('created')
+      mutate()
       setNewTask(false)
       setLoader(false)
     })
@@ -53,17 +49,11 @@ export default function ItemsForm(props: formProps) {
     const title = titleRef.current.value;
     const description = descRef.current.value;
 
-    const payload = {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify({id:id, title: title, description: description})
-    }
-    
-    fetchApi('updateTask', payload)
-    .then(()=> {
+    const data = {id:id, title: title, description: description}
+
+    fetchApi('updateTask', true, data)
+    .then(()=>{
+      mutate()
       setNewTask(false)
       setLoader(false)
     })
