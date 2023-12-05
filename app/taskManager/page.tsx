@@ -63,7 +63,7 @@ export default function App() {
 
         <Loader />
           :
-        <div className="flex flex-col h-full mx-10 ">
+        <div className="flex flex-col h-full mx-5">
           <div className="flex gap-x-[1rem] w-full items-center p-3 rounded-lg mt-20 backdrop-blur-sm bg-white/30 ">
               <img className="rounded-full" src={user ? user.picture : "https://img.icons8.com/ios-glyphs/90/FFFFFF/user--v1.png"}  />
               <div className="flex flex-col"> 
