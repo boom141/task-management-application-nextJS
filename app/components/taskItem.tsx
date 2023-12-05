@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import fetchApi from "../services/apiFetching"
 
 type itemProps = {
@@ -49,11 +48,12 @@ export default function TaskItem(props : itemProps) {
     }
     
     fetchApi('deleteTask', payload)
+    // .then(() => )
     .catch(err => console.log(err));
     }
     
     const markTask = () =>{      
-      
+
       const payload = {
         headers: {
           'Accept': 'application/json',

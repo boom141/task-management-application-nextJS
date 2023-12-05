@@ -1,7 +1,7 @@
 'use client'
 
 import { getCookie, deleteCookie, hasCookie } from "cookies-next";
-import { useState,useEffect} from "react";
+import React,{ useState,useEffect,createContext} from "react";
 import { useRouter } from "next/navigation"
 import dateFormat  from "dateformat";
 import FadeIn from "react-fade-in/lib/FadeIn";
@@ -22,18 +22,18 @@ export default function App() {
 
   const navigate = useRouter()
 
+  
   useEffect(()=>{
     fetchApi('allTask',{})
     .then(data => {
       setUser(JSON.parse(hasCookie('authorized') ? getCookie('authorized') : 'false' as any))
-      setTaskItems(data);
       setUpdateTitle('');
+      setTaskItems(data);
       setUpdateDescription('');
       console.log(data)
-    })
-    .catch(err => console.error(err))
-  },[])
-
+    }).catch(err => console.error(err))    
+  },[taskItems])
+  
 
   const getDate = () =>{
     const current = new Date();
