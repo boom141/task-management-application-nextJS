@@ -21,19 +21,17 @@ export default function App() {
   const [loader,setLoader] = useState(false)
 
   const navigate = useRouter()
-
   
-  useEffect(()=>{
-    fetchApi('allTask',{})
-    .then(data => {
-      setUser(JSON.parse(hasCookie('authorized') ? getCookie('authorized') : 'false' as any))
-      setUpdateTitle('');
-      setTaskItems(data);
-      setUpdateDescription('');
-      console.log(data)
-    }).catch(err => console.error(err))    
-  },[taskItems])
+  // useEffect(()=>{
+  //   setUser(JSON.parse(hasCookie('authorized') ? getCookie('authorized') : 'false' as any))
+  //   setUpdateTitle('');
+  //   setUpdateDescription('');
+  // },[taskItems])
   
+  fetchApi('allTask',{})
+  .then(data => {
+    setTaskItems(data);
+  }).catch(err => console.error(err))    
 
   const getDate = () =>{
     const current = new Date();
