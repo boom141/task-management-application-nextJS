@@ -34,7 +34,6 @@ export default function ItemsForm(props: formProps) {
 
     fetchApi('createTask', true, data)
     .then(()=>{
-      console.log('created')
       mutate()
       setNewTask(false)
       setLoader(false)
