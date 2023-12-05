@@ -24,7 +24,7 @@ export default function App() {
 
   const navigate = useRouter()
 
-  const { data: taskItems } = useSWR(window.origin + '/api/allTask', fetcher)
+  const { data: taskItems } = useSWR('/api/allTask', fetcher)
 
 
   const getDate = () =>{
