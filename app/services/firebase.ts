@@ -3,9 +3,6 @@ import { setCookie, hasCookie } from "cookies-next";
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup, } from "firebase/auth"
 
-dotenv.config()
-const firebaseApiKey = process.env.FIREBASE_API_KEY
-
 const firebaseConfig = {
     apiKey: "AIzaSyB81orxmCaxTmiwPIYi6lnyd8Ic9g5OJjQ",
     authDomain: "userauth-46e3d.firebaseapp.com",
