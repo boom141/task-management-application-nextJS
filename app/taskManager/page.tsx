@@ -71,6 +71,8 @@ export default function App() {
               <span className="font-light">Add Task</span>
               <img role="button" onClick={()=>{
                   setFormType('create')
+                  setUpdateTitle(' ')
+                  setUpdateDescription(' ')
                   setNewTask(true)
                 }} className="border rounded-full p-[5px] backdrop-blur-sm transition-all hover:bg-white/30 hover:border-none " 
               width="32" height="32" src="https://img.icons8.com/android/48/FFFFFF/plus.png" />
