@@ -1,15 +1,18 @@
-import dotenv from 'dotenv'
+
 import { setCookie, hasCookie } from "cookies-next";
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup, } from "firebase/auth"
 
+import dotenv from 'dotenv'
+dotenv.config()
+
 const firebaseConfig = {
-    apiKey: "AIzaSyB81orxmCaxTmiwPIYi6lnyd8Ic9g5OJjQ",
-    authDomain: "userauth-46e3d.firebaseapp.com",
-    projectId: "userauth-46e3d",
-    storageBucket: "userauth-46e3d.appspot.com",
-    messagingSenderId: "238135021643",
-    appId: "1:238135021643:web:643060c5131b247375fdce"
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+    authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+    projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+    storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+    appId: process.env.NEXT_PUBLIC_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);
