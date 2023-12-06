@@ -22,7 +22,7 @@ export default function App() {
   const [loader,setLoader] = useState(false)
 
   const navigate = useRouter()
-  const { data: taskItems, mutate } = useSWR('/api/allTask',fetcher)
+  const { data: taskItems, mutate } = useSWR('/api/allTask',fetcher, {refreshInterval:500})
   
   useEffect(()=>{
     setUser(hasCookie('authorized') ? JSON.parse(getCookie('authorized') as any ) : false)
