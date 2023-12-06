@@ -2,6 +2,8 @@
 import prisma from "@/prisma/prismaClient";
 import { NextResponse } from "next/server";
 
+// Api endpoint for marking a task as complete 
+
 export async function POST(request: Request){
   const data = await request.json();
   try{
