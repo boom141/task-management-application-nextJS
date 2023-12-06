@@ -26,7 +26,6 @@ export default function App() {
   
   useEffect(()=>{
     setUser(hasCookie('authorized') ? JSON.parse(getCookie('authorized') as any ) : false)
-    console.log(taskItems)
   },[])
 
 
