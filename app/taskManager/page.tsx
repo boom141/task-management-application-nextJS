@@ -23,7 +23,6 @@ export default function App() {
   const [loader,setLoader] = useState(false)
 
   const navigate = useRouter()
-  const { data: taskItems, mutate } = useSWR('/api/allTask',fetcher)
   
   useEffect(()=>{
     setUser(hasCookie('authorized') ? JSON.parse(getCookie('authorized') as any ) : false)
@@ -32,7 +31,8 @@ export default function App() {
     }
   },[])
 
-
+  const { data: taskItems, mutate } = useSWR('/api/allTask',fetcher)
+  
   const getDate = () =>{
     const current = new Date();
     return dateFormat(current, "dddd, mmmm dS, yyyy")
