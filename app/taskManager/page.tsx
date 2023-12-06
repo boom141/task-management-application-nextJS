@@ -11,6 +11,7 @@ import useSWR from "swr";
 import ItemsForm from "../components/itemsForm";
 import TaskItem from "../components/taskItem";
 import Loader from "../components/loader";
+import { cache } from "swr/_internal";
 
 export default function App() {
   const [newTask, setNewTask] = useState(false);
@@ -22,10 +23,13 @@ export default function App() {
   const [loader,setLoader] = useState(false)
 
   const navigate = useRouter()
-  const { data: taskItems, mutate } = useSWR('/api/allTask',fetcher, {refreshInterval:500})
+  const { data: taskItems, mutate } = useSWR('/api/allTask',fetcher)
   
   useEffect(()=>{
     setUser(hasCookie('authorized') ? JSON.parse(getCookie('authorized') as any ) : false)
+    return () =>{
+      cache.delete('/api/allTask')
+    }
   },[])
 
 
